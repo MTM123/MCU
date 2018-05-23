@@ -9,3 +9,4 @@ It's not really that pretty yet so use at your own risk.
 * Reflection utils
 * Schematic utils
 * Inventory and Item utils
+* Config management
