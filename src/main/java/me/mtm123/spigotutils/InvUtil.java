@@ -2,6 +2,7 @@ package me.mtm123.spigotutils;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class InvUtil {
@@ -20,6 +21,18 @@ public class InvUtil {
         }
 
         return freeSpace;
+    }
+
+    public static int countItem(Inventory inv, ItemStack item){
+
+        int count = 0;
+        for(ItemStack i : inv.getContents()){
+            if(i != null && i.isSimilar(item))
+                count += i.getAmount();
+        }
+
+        return count;
+
     }
 
 }
