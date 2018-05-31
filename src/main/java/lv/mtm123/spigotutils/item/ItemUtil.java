@@ -1,4 +1,4 @@
-package me.mtm123.spigotutils.item;
+package lv.mtm123.spigotutils.item;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,7 +10,7 @@ public final class ItemUtil {
         int freeSpace = 0;
         for (ItemStack i : player.getInventory().getContents()) {
 
-            if (i == null || i.getType().equals((Object)Material.AIR)) {
+            if (i == null || i.getType().equals(Material.AIR)) {
                 freeSpace += item.getMaxStackSize();
             } else if (i.isSimilar(item)) {
                 freeSpace += item.getMaxStackSize() - i.getAmount();

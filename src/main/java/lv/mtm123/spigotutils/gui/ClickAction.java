@@ -1,4 +1,4 @@
-package me.mtm123.spigotutils.gui;
+package lv.mtm123.spigotutils.gui;
 
 import org.bukkit.entity.Player;
 

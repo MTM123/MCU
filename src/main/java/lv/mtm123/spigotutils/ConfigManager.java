@@ -1,4 +1,4 @@
-package me.mtm123.factionsaddons.data;
+package lv.mtm123.spigotutils;
 
 import org.bukkit.plugin.Plugin;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -42,9 +42,7 @@ public final class ConfigManager {
 
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidConfigurationException e) {
+        } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
 

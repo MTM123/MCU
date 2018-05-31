@@ -1,6 +1,6 @@
-package me.mtm123.spigotutils.item;
+package lv.mtm123.spigotutils.item;
 
-import me.mtm123.spigotutils.ReflectionUtil;
+import lv.mtm123.spigotutils.ReflectionUtil;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Constructor;
@@ -29,8 +29,8 @@ public final class NBTUtil {
         }
 
         public Object toNmsNBTTag() throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
-            Class<?> cNBTTagCompound = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagCompound");
-            Class<?> cNBTBase = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTBase");
+            Class<?> cNBTTagCompound = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagCompound");
+            Class<?> cNBTBase = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTBase");
 
             Method mNBTTagCompoundSet = cNBTTagCompound.getDeclaredMethod("set", String.class, cNBTBase);
 
@@ -47,10 +47,10 @@ public final class NBTUtil {
 
     public static ItemStack addNBTDataToItem(ItemStack item, Map<String, Object> data) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
 
-        Class<?> cnmsItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "ItemStack");
-        Class<?> cCraftItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.CRAFTBUKKIT, "inventory.CraftItemStack");
+        Class<?> cnmsItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "ItemStack");
+        Class<?> cCraftItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.CB, "inventory.CraftItemStack");
 
-        Class<?> cNBTTagCompound = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagCompound");
+        Class<?> cNBTTagCompound = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagCompound");
 
         Object nmsItemStack = cCraftItemStack.getDeclaredMethod("asNMSCopy", ItemStack.class).invoke(null, item);
 
@@ -80,11 +80,11 @@ public final class NBTUtil {
 
     }
 
-    public static Object getNBTDataFromItemStack(ItemStack item, String key) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
-        Class<?> cnmsItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "ItemStack");
-        Class<?> cCraftItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.CRAFTBUKKIT, "inventory.CraftItemStack");
+    public static Object getNBTDataFromItemStack(ItemStack item, String key) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class<?> cnmsItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "ItemStack");
+        Class<?> cCraftItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.CB, "inventory.CraftItemStack");
 
-        Class<?> cNBTTagCompound = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagCompound");
+        Class<?> cNBTTagCompound = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagCompound");
 
         Object nmsItemStack = cCraftItemStack.getDeclaredMethod("asNMSCopy", ItemStack.class).invoke(null, item);
 
@@ -104,28 +104,28 @@ public final class NBTUtil {
         Class<?> parameterType = null;
         Class<?> nbttypeclass = null;
         if(object.getClass() == Short.class){
-            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagShort");
+            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagShort");
             parameterType = short.class;
         }else if(object.getClass() == Integer.class){
-            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagInt");
+            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagInt");
             parameterType = int.class;
         }else if(object.getClass() == String.class){
-            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagString");
+            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagString");
             parameterType = String.class;
         }else if(object.getClass() == int[].class){
-            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagIntArray");
+            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagIntArray");
             parameterType = int[].class;
         }else if(object.getClass() == Byte.class){
-            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagByte");
+            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagByte");
             parameterType = byte.class;
         }else if(object.getClass() == byte[].class){
-            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagByteArray");
+            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagByteArray");
             parameterType = byte[].class;
         }else if(object.getClass() == Float.class){
-            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagFloat");
+            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagFloat");
             parameterType = float.class;
         }else if(object.getClass() == Double.class){
-            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagDouble");
+            nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagDouble");
             parameterType = double.class;
         }
 
@@ -142,8 +142,8 @@ public final class NBTUtil {
     }
 
     public static void setNBTDataToTag(Object tag, String key, Object data) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
-        Class<?> cNBTTagCompound = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagCompound");
-        Class<?> cNBTBase = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTBase");
+        Class<?> cNBTTagCompound = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagCompound");
+        Class<?> cNBTBase = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTBase");
 
         Method set = cNBTTagCompound.getDeclaredMethod("set", String.class, cNBTBase);
         if(data instanceof NBTTag){
@@ -159,17 +159,17 @@ public final class NBTUtil {
     }
 
     public static void removeNBTDataFromTag(Object tag, String key) throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException {
-        Class<?> cNBTTagCompound = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagCompound");
+        Class<?> cNBTTagCompound = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagCompound");
 
         Method remove = cNBTTagCompound.getDeclaredMethod("remove", String.class);
         remove.invoke(tag, key);
     }
 
     public static String itemToJSONString(ItemStack item) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
-        Class<?> cnmsItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "ItemStack");
-        Class<?> cCraftItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.CRAFTBUKKIT, "inventory.CraftItemStack");
+        Class<?> cnmsItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "ItemStack");
+        Class<?> cCraftItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.CB, "inventory.CraftItemStack");
 
-        Class<?> cNBTTagCompound = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTTagCompound");
+        Class<?> cNBTTagCompound = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagCompound");
 
         Method asNMSCopy = cCraftItemStack.getDeclaredMethod("asNMSCopy", ItemStack.class);
         Method save = cnmsItemStack.getDeclaredMethod("save", cNBTTagCompound);

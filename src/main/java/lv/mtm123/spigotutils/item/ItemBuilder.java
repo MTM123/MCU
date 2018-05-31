@@ -1,4 +1,4 @@
-package me.mtm123.spigotutils.item;
+package lv.mtm123.spigotutils.item;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

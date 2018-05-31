@@ -1,4 +1,4 @@
-package me.mtm123.spigotutils.gui;
+package lv.mtm123.spigotutils.gui;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;

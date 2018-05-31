@@ -1,4 +1,4 @@
-package me.mtm123.spigotutils;
+package lv.mtm123.spigotutils;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -24,10 +24,32 @@ public class InvUtil {
     }
 
     public static int countItem(Inventory inv, ItemStack item){
+        return countItem(inv.getContents(), item);
+    }
+
+    public static int countItem(ItemStack[] items, ItemStack item){
 
         int count = 0;
-        for(ItemStack i : inv.getContents()){
+        for(ItemStack i : items){
             if(i != null && i.isSimilar(item))
+                count += i.getAmount();
+        }
+
+        return count;
+
+    }
+
+    public static int countItem(Inventory inv, Material mat){
+
+        return countItem(inv.getContents(), mat);
+
+    }
+
+    public static int countItem(ItemStack[] items, Material mat){
+
+        int count = 0;
+        for(ItemStack i : items){
+            if(i != null && i.getType() == mat)
                 count += i.getAmount();
         }
 

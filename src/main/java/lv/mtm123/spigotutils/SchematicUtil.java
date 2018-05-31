@@ -1,4 +1,4 @@
-package me.mtm123.spigotutils;
+package lv.mtm123.spigotutils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +13,7 @@ public final class SchematicUtil {
 
     public static Schematic loadSchematic(final File file) throws ClassNotFoundException {
 
-        final Class<?> NBTCompressedStreamTools = ReflectionUtil.getClass(ReflectionUtil.Package.MINECRAFT, "NBTCompressedStreamTools");
+        final Class<?> NBTCompressedStreamTools = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTCompressedStreamTools");
 
         try(FileInputStream in = new FileInputStream(file)) {
             Object nbtData = NBTCompressedStreamTools.getMethod("a", InputStream.class).invoke(null, in);
