@@ -5,6 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collection;
+
 public class InvUtil {
 
     private InvUtil(){}
@@ -39,6 +41,18 @@ public class InvUtil {
 
     }
 
+    public static int countItem(Collection<ItemStack> items, ItemStack item){
+
+        int count = 0;
+        for(ItemStack i : items){
+            if(i != null && i.isSimilar(item))
+                count += i.getAmount();
+        }
+
+        return count;
+
+    }
+
     public static int countItem(Inventory inv, Material mat){
 
         return countItem(inv.getContents(), mat);
@@ -56,5 +70,19 @@ public class InvUtil {
         return count;
 
     }
+
+    public static int countItem(Collection<ItemStack> items, Material mat){
+
+        int count = 0;
+        for(ItemStack i : items){
+            if(i != null && i.getType() == mat)
+                count += i.getAmount();
+        }
+
+        return count;
+
+    }
+
+
 
 }

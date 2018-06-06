@@ -23,7 +23,6 @@ public final class ConfigManager {
             throw new IllegalStateException("ConfigManager must be initialized!");
         }
 
-
         File file = new File(plugin.getDataFolder(), filename);
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 

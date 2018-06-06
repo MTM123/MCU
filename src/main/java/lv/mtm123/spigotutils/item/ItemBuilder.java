@@ -9,6 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ItemBuilder {
     private final ItemStack i;
@@ -92,6 +93,11 @@ public class ItemBuilder {
 
     public ItemBuilder addEnchant(Enchantment en, int level){
         imeta.addEnchant(en, level, false);
+        return this;
+    }
+
+    public ItemBuilder addEnchants(Map<Enchantment, Integer> enchs){
+        enchs.forEach((k,v) -> imeta.addEnchant(k, v, false));
         return this;
     }
 
