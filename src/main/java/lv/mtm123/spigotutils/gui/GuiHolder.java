@@ -15,7 +15,11 @@ public class GuiHolder implements InventoryHolder
     
     public GuiHolder(String title, int size) {
         this.title = title;
-        this.size = ((size % 9 == 0) ? size : 54);
+        if (54 <= size) {
+            this.size = 54;
+        } else {
+            this.size = ((size % 9 == 0) ? size : size/9+1);
+        }
         this.icons = new HashMap<>();
     }
     
