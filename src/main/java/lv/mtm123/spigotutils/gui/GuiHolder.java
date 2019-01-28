@@ -7,11 +7,11 @@ import org.bukkit.inventory.InventoryHolder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GuiHolder implements InventoryHolder
-{
+public class GuiHolder implements InventoryHolder {
+
     private final String title;
     private final int size;
-    private final HashMap<Integer, Icon> icons;
+    private final Map<Integer, Icon> icons;
     
     public GuiHolder(String title, int size) {
         this.title = title;
