@@ -2,7 +2,6 @@ package lv.mtm123.spigotutils.gui;
 
 import org.bukkit.entity.Player;
 
-public interface ClickAction
-{
+public interface ClickAction {
     void execute(Player player);
 }

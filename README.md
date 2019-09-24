@@ -17,7 +17,7 @@ It's not really that pretty yet so use at your own risk.
     <dependency>
         <groupId>lv.mtm123</groupId>
         <artifactId>spigotutils</artifactId>
-        <version>0.3.0-SNAPSHOT</version>
+        <version>${project.version}</version>
     </dependency>
 </dependencies>
 

@@ -1,4 +1,4 @@
-package lv.mtm123.spigotutils.item;
+package lv.mtm123.spigotutils.nbt;
 
 import lv.mtm123.spigotutils.ReflectionUtil;
 import org.bukkit.inventory.ItemStack;
@@ -6,43 +6,12 @@ import org.bukkit.inventory.ItemStack;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
 public final class NBTUtil {
 
-    private NBTUtil (){}
-
-    public static class NBTTag{
-        private final Map<String, Object> data;
-        public NBTTag(){
-            data = new HashMap<>();
-        }
-
-        public void set(String key, Object obj){
-            data.put(key, obj);
-        }
-
-        public void remove(String key, Object obj){
-            data.remove(key, obj);
-        }
-
-        public Object toNmsNBTTag() throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
-            Class<?> cNBTTagCompound = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagCompound");
-            Class<?> cNBTBase = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTBase");
-
-            Method mNBTTagCompoundSet = cNBTTagCompound.getDeclaredMethod("set", String.class, cNBTBase);
-
-            Object tag = cNBTTagCompound.newInstance();
-            for(Map.Entry<String, Object> e : data.entrySet()){
-                Object o = wrapWithNBTTypeTag(e.getValue());
-                mNBTTagCompoundSet.invoke(tag, e.getKey(), o);
-            }
-
-            return tag;
-        }
-
+    private NBTUtil() {
     }
 
     public static ItemStack addNBTDataToItem(ItemStack item, Map<String, Object> data) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
@@ -55,17 +24,17 @@ public final class NBTUtil {
         Object nmsItemStack = cCraftItemStack.getDeclaredMethod("asNMSCopy", ItemStack.class).invoke(null, item);
 
         Object tag;
-        if((boolean) cnmsItemStack.getDeclaredMethod("hasTag").invoke(nmsItemStack)){
+        if ((boolean) cnmsItemStack.getDeclaredMethod("hasTag").invoke(nmsItemStack)) {
             tag = cnmsItemStack.getDeclaredMethod("getTag").invoke(nmsItemStack);
-        }else{
+        } else {
             tag = cNBTTagCompound.newInstance();
         }
 
-        for(Map.Entry<String, Object> e : data.entrySet()){
+        for (Map.Entry<String, Object> e : data.entrySet()) {
             Object o;
-            if(e.getValue() instanceof NBTTag){
+            if (e.getValue() instanceof NBTTag) {
                 o = ((NBTTag) e.getValue()).toNmsNBTTag();
-            }else{
+            } else {
                 o = wrapWithNBTTypeTag(e.getValue());
             }
 
@@ -80,7 +49,14 @@ public final class NBTUtil {
 
     }
 
-    public static Object getNBTDataFromItemStack(ItemStack item, String key) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static NBTTag getNBTTagFromItemStack(ItemStack item) {
+
+        NBTTag nbtTag = new NBTTag();
+
+        return null;
+    }
+
+    public static Object getNmsNBTTagFromItemStack(ItemStack item, String key) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class<?> cnmsItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "ItemStack");
         Class<?> cCraftItemStack = ReflectionUtil.getClass(ReflectionUtil.Package.CB, "inventory.CraftItemStack");
 
@@ -88,9 +64,9 @@ public final class NBTUtil {
 
         Object nmsItemStack = cCraftItemStack.getDeclaredMethod("asNMSCopy", ItemStack.class).invoke(null, item);
 
-        if((boolean) cnmsItemStack.getDeclaredMethod("hasTag").invoke(nmsItemStack)){
+        if ((boolean) cnmsItemStack.getDeclaredMethod("hasTag").invoke(nmsItemStack)) {
             Object tag = cnmsItemStack.getDeclaredMethod("getTag").invoke(nmsItemStack);
-            if((boolean) cNBTTagCompound.getDeclaredMethod("hasKey", String.class).invoke(tag, key)){
+            if ((boolean) cNBTTagCompound.getDeclaredMethod("hasKey", String.class).invoke(tag, key)) {
                 return cNBTTagCompound.getDeclaredMethod("get", String.class).invoke(tag, key);
             }
         }
@@ -103,38 +79,38 @@ public final class NBTUtil {
 
         Class<?> parameterType = null;
         Class<?> nbttypeclass = null;
-        if(object.getClass() == Short.class){
+        if (object.getClass() == Short.class) {
             nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagShort");
             parameterType = short.class;
-        }else if(object.getClass() == Integer.class){
+        } else if (object.getClass() == Integer.class) {
             nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagInt");
             parameterType = int.class;
-        }else if(object.getClass() == String.class){
+        } else if (object.getClass() == String.class) {
             nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagString");
             parameterType = String.class;
-        }else if(object.getClass() == int[].class){
+        } else if (object.getClass() == int[].class) {
             nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagIntArray");
             parameterType = int[].class;
-        }else if(object.getClass() == Byte.class){
+        } else if (object.getClass() == Byte.class) {
             nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagByte");
             parameterType = byte.class;
-        }else if(object.getClass() == byte[].class){
+        } else if (object.getClass() == byte[].class) {
             nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagByteArray");
             parameterType = byte[].class;
-        }else if(object.getClass() == Float.class){
+        } else if (object.getClass() == Float.class) {
             nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagFloat");
             parameterType = float.class;
-        }else if(object.getClass() == Double.class){
+        } else if (object.getClass() == Double.class) {
             nbttypeclass = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTTagDouble");
             parameterType = double.class;
         }
 
-        if(nbttypeclass != null){
+        if (nbttypeclass != null) {
             Constructor cons = nbttypeclass.getConstructor(parameterType);
             object = cons.newInstance(object);
 
             return object;
-        }else{
+        } else {
             throw new IllegalArgumentException("Can't wrap type: " + object.getClass().getCanonicalName()
                     + " with NBT Type Tag. Incorrect type provided!");
         }
@@ -146,10 +122,10 @@ public final class NBTUtil {
         Class<?> cNBTBase = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "NBTBase");
 
         Method set = cNBTTagCompound.getDeclaredMethod("set", String.class, cNBTBase);
-        if(data instanceof NBTTag){
+        if (data instanceof NBTTag) {
             data = ((NBTTag) data).toNmsNBTTag();
-        }else {
-            if(!cNBTBase.isInstance(data)){
+        } else {
+            if (!cNBTBase.isInstance(data)) {
                 data = wrapWithNBTTypeTag(data);
             }
         }

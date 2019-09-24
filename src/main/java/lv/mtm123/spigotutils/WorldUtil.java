@@ -9,15 +9,17 @@ import org.bukkit.block.BlockFace;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class WorldUtil {
 
-    private WorldUtil(){}
+    private WorldUtil() {
+    }
 
     //Based on nms Explosion
-    public static Set<Block> generateExplosion(Location loc, float power){
+    public static Set<Block> generateExplosion(Location loc, float power) {
 
         World world = loc.getWorld();
 
@@ -35,9 +37,9 @@ public final class WorldUtil {
             for (int i = 0; i < 16; ++i) {
                 for (int j = 0; j < 16; ++j) {
                     if (k == 0 || k == 15 || i == 0 || i == 15 || j == 0 || j == 15) {
-                        double d0 = (double) ((float) k / 15.0F * 2.0F - 1.0F);
-                        double d1 = (double) ((float) i / 15.0F * 2.0F - 1.0F);
-                        double d2 = (double) ((float) j / 15.0F * 2.0F - 1.0F);
+                        double d0 = (float) k / 15.0F * 2.0F - 1.0F;
+                        double d1 = (float) i / 15.0F * 2.0F - 1.0F;
+                        double d2 = (float) j / 15.0F * 2.0F - 1.0F;
                         double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
 
                         d0 /= d3;
@@ -48,12 +50,12 @@ public final class WorldUtil {
                         double d5 = posY;
                         double d6 = posZ;
 
-                        while (f > 0.0F){
+                        while (f > 0.0F) {
                             Block blockposition = world.getBlockAt(new Location(world, d4, d5, d6));
                             Material mat = blockposition.getType();
 
                             if (mat != Material.AIR) {
-                                float f2 =  getBlockDurability(blockposition) / 5.0F;
+                                float f2 = getBlockDurability(blockposition) / 5.0F;
                                 f -= (f2 + 0.3F) * 0.3F;
                             }
 
@@ -76,7 +78,7 @@ public final class WorldUtil {
         return affectedBlocks;
     }
 
-    public static Set<Block> getBlocksInPlane(Axis axis, Block c, int radius){
+    public static Set<Block> getBlocksInPlane(Axis axis, Block c, int radius) {
 
         radius = Math.abs(radius);
 
@@ -109,14 +111,13 @@ public final class WorldUtil {
 
     }
 
-    public static float getBlockDurability(Block block){
+    public static float getBlockDurability(Block block) {
         try {
 
             Class<?> cCraftMagicNumbers = ReflectionUtil.getClass(ReflectionUtil.Package.CB, "util.CraftMagicNumbers");
             Method getBlock = cCraftMagicNumbers.getMethod("getBlock", Material.class);
 
             Class<?> cNMSBlock = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "Block");
-
 
             Field durabilityField = cNMSBlock.getDeclaredField("durability");
 
@@ -137,7 +138,7 @@ public final class WorldUtil {
         return 1;
     }
 
-    public static Set<Block> getAdjacentBlocks(Block c){
+    public static Set<Block> getAdjacentBlocks(Block c) {
 
         Set<Block> blocks = new HashSet<>();
 
@@ -152,8 +153,25 @@ public final class WorldUtil {
 
     }
 
-    public static BlockFace invertFace(BlockFace bf){
-        switch (bf){
+    public static int getXPDropsForMaterial(Material mat, Random rnd) {
+
+        switch (mat) {
+            case COAL_ORE:
+                return rnd.nextInt(2);
+            case DIAMOND_ORE:
+            case EMERALD_ORE:
+                return 3 + rnd.nextInt(4);
+            case LAPIS_ORE:
+            case QUARTZ_ORE:
+                return 2 + rnd.nextInt(3);
+            default:
+                return 0;
+        }
+
+    }
+
+    public static BlockFace invertFace(BlockFace bf) {
+        switch (bf) {
             case WEST:
                 return BlockFace.EAST;
             case EAST:
@@ -175,8 +193,8 @@ public final class WorldUtil {
             case SOUTH_EAST:
                 return BlockFace.NORTH_WEST;
 
-                default:
-                    return BlockFace.SELF;
+            default:
+                return BlockFace.SELF;
         }
     }
 }

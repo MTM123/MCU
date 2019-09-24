@@ -9,25 +9,11 @@ import java.lang.reflect.Method;
 
 public final class ReflectionUtil {
 
-    private ReflectionUtil(){}
+    private ReflectionUtil() {
+    }
 
     public static Class<?> getClass(final Package pckg, final String name) throws ClassNotFoundException {
         return Class.forName(pckg.value() + Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3] + "." + name);
-    }
-    
-    public enum Package {
-        NMS("net.minecraft.server."),
-        CB("org.bukkit.craftbukkit.");
-        
-        private final String pckge;
-        
-        Package(final String pckge) {
-            this.pckge = pckge;
-        }
-        
-        public String value() {
-            return this.pckge;
-        }
     }
 
     public static void sendPacket(Player player, Object packet) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException {
@@ -44,6 +30,21 @@ public final class ReflectionUtil {
         Method sendPacket = playerConn.get(nmsPlayer).getClass().getMethod("sendPacket", nPacket);
         sendPacket.invoke(playerConn.get(nmsPlayer), packet);
 
+    }
+
+    public enum Package {
+        NMS("net.minecraft.server."),
+        CB("org.bukkit.craftbukkit.");
+
+        private final String pckge;
+
+        Package(final String pckge) {
+            this.pckge = pckge;
+        }
+
+        public String value() {
+            return this.pckge;
+        }
     }
 
 }

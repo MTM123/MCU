@@ -1,10 +1,11 @@
 package lv.mtm123.spigotutils;
 
-import org.bukkit.plugin.Plugin;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 
+import java.beans.Transient;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,13 +14,14 @@ public final class ConfigManager {
 
     private static Plugin plugin = null;
 
-    public static void initialize(Plugin plugin){
+    public static void initialize(Plugin plugin) {
         ConfigManager.plugin = plugin;
     }
 
-    public static FileConfiguration load(String filename){
+    @Transient
+    public static FileConfiguration load(String filename) {
 
-        if(plugin == null){
+        if (plugin == null) {
             throw new IllegalStateException("ConfigManager must be initialized!");
         }
 
@@ -27,13 +29,13 @@ public final class ConfigManager {
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         try {
-            if(!file.exists()){
+            if (!file.exists()) {
 
                 InputStream in = plugin.getResource(filename);
 
-                if(in != null){
+                if (in != null) {
                     plugin.saveResource(filename, false);
-                }else {
+                } else {
                     cfg.save(file);
                 }
 
@@ -48,9 +50,9 @@ public final class ConfigManager {
         return cfg;
     }
 
-    public static void save(FileConfiguration config, String filename){
+    public static void save(FileConfiguration config, String filename) {
 
-        if(plugin == null){
+        if (plugin == null) {
             throw new IllegalStateException("ConfigManager must be initialized!");
         }
 
@@ -61,6 +63,31 @@ public final class ConfigManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void delete(String filename) {
+
+        if (plugin == null) {
+            throw new IllegalStateException("ConfigManager must be initialized!");
+        }
+
+        File file = new File(plugin.getDataFolder(), filename);
+
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
+    public static boolean exists(String filename) {
+
+        if (plugin == null) {
+            throw new IllegalStateException("ConfigManager must be initialized!");
+        }
+
+        File file = new File(plugin.getDataFolder(), filename);
+
+        return file.exists();
+
     }
 
 }

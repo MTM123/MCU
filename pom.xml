@@ -32,7 +32,7 @@
                             <outputDirectory>${project.basedir}</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}</directory>
+                                    <directory>${project.basedir}/templates/</directory>
                                     <includes>
                                         <include>README.md</include>
                                         <filtering>true</filtering>
@@ -61,6 +61,13 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
 
     <distributionManagement>
         <repository>
