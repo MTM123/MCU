@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'maven'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    maven {
+        url = 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+}
+
+publishing {
+    publications {
+        spigotutils(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'mtm123'
+            url = 'sftp://repo.mtm123.lv:22/repo/'
+            credentials {
+                username mavenUser
+                password mavenPass
+            }
+        }
+    }
+}
+
+group = pluginGroup
+version = pluginVersion
+sourceCompatibility = '1.8'
