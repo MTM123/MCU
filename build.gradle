@@ -18,7 +18,7 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
 }
 
-publishing {
+/*publishing {
     publications {
         spigotutils(MavenPublication) {
             from components.java
@@ -35,7 +35,7 @@ publishing {
             }
         }
     }
-}
+}*/
 
 group = pluginGroup
 version = pluginVersion

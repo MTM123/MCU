@@ -1,6 +1,6 @@
-package lv.mtm123.spigotutils;
+package lv.mtm123.mcu;
 
-import lv.mtm123.spigotutils.item.ItemBuilder;
+import lv.mtm123.mcu.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;

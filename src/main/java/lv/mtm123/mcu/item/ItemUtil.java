@@ -1,4 +1,4 @@
-package lv.mtm123.spigotutils.item;
+package lv.mtm123.mcu.item;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

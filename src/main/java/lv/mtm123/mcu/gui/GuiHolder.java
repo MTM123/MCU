@@ -1,4 +1,4 @@
-package lv.mtm123.spigotutils.gui;
+package lv.mtm123.mcu.gui;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
@@ -7,6 +7,7 @@ import org.bukkit.inventory.InventoryHolder;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO: This needs to be looked at as well
 public class GuiHolder implements InventoryHolder {
 
     private final String title;

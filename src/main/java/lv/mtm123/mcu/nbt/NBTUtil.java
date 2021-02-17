@@ -1,6 +1,6 @@
-package lv.mtm123.spigotutils.nbt;
+package lv.mtm123.mcu.nbt;
 
-import lv.mtm123.spigotutils.ReflectionUtil;
+import lv.mtm123.mcu.ReflectionUtil;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Constructor;
@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+@Deprecated
 public final class NBTUtil {
 
     private NBTUtil() {

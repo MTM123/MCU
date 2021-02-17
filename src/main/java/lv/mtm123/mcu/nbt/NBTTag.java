@@ -1,12 +1,14 @@
-package lv.mtm123.spigotutils.nbt;
+package lv.mtm123.mcu.nbt;
 
-import lv.mtm123.spigotutils.ReflectionUtil;
+import lv.mtm123.mcu.ReflectionUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO: Use net.kyori.(tag?) or smth
+@Deprecated
 public class NBTTag {
 
     private final Map<String, Object> data;

@@ -1,4 +1,4 @@
-package lv.mtm123.spigotutils.gui;
+package lv.mtm123.mcu.gui;
 
 import org.bukkit.inventory.ItemStack;
 

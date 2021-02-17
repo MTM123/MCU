@@ -1,4 +1,4 @@
-package lv.mtm123.spigotutils;
+package lv.mtm123.mcu;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

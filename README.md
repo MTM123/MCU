@@ -1,6 +1,6 @@
-# SpigotUtils
+# MCU
 
-SpigotUtils is a library I tend use for my plugins.
+MCU is a library I tend use for my plugins.
 It's not really that pretty yet so use at your own risk.
 
 ### Features
@@ -9,7 +9,6 @@ It's not really that pretty yet so use at your own risk.
 * Reflection utils
 * Schematic utils
 * Inventory and Item utils
-* Config management
 
 ### Maven repo
 ```xml
@@ -17,7 +16,7 @@ It's not really that pretty yet so use at your own risk.
     <dependency>
         <groupId>lv.mtm123</groupId>
         <artifactId>spigotutils</artifactId>
-        <version>${project.version}</version>
+        <version>1.0.0-SNAPSHOT</version>
     </dependency>
 </dependencies>
 

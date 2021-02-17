@@ -1,4 +1,4 @@
-package lv.mtm123.spigotutils;
+package lv.mtm123.mcu;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
