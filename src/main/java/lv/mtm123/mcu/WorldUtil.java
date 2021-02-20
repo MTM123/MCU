@@ -18,6 +18,24 @@ public final class WorldUtil {
     private WorldUtil() {
     }
 
+    private static Method getBlock;
+    private static Field durabilityField;
+
+    static {
+        try {
+            Class<?> cCraftMagicNumbers = ReflectionUtil.getClass(ReflectionUtil.Package.CB, "util.CraftMagicNumbers");
+            getBlock = cCraftMagicNumbers.getMethod("getBlock", Material.class);
+
+            Class<?> cNMSBlock = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "Block");
+
+            durabilityField = cNMSBlock.getDeclaredField("durability");
+            durabilityField.setAccessible(true);
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     //Based on nms Explosion
     public static Set<Block> generateExplosion(Location loc, float power) {
 
@@ -112,25 +130,13 @@ public final class WorldUtil {
     }
 
     public static float getBlockDurability(Block block) {
+        if (getBlock == null || durabilityField == null) {
+            return 1;
+        }
+
         try {
-
-            Class<?> cCraftMagicNumbers = ReflectionUtil.getClass(ReflectionUtil.Package.CB, "util.CraftMagicNumbers");
-            Method getBlock = cCraftMagicNumbers.getMethod("getBlock", Material.class);
-
-            Class<?> cNMSBlock = ReflectionUtil.getClass(ReflectionUtil.Package.NMS, "Block");
-
-            Field durabilityField = cNMSBlock.getDeclaredField("durability");
-
             Object nmsblock = getBlock.invoke(null, block.getType());
-
-            durabilityField.setAccessible(true);
-
-            float dur = (float) durabilityField.get(nmsblock);
-
-            durabilityField.setAccessible(false);
-
-            return dur;
-
+            return (float) durabilityField.get(nmsblock);
         } catch (Exception e) {
             e.printStackTrace();
         }
